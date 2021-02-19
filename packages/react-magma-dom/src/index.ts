@@ -101,7 +101,7 @@ export {
   InputType,
 } from './components/InputBase';
 export { InputMessage } from './components/Input/InputMessage';
-export { Label } from './components/Label';
+export { Label, LabelPosition } from './components/Label';
 export {
   LoadingIndicator,
   LoadingIndicatorProps,

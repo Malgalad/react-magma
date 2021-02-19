@@ -262,7 +262,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               textPosition={textPosition}
               theme={theme}
             >
-              <CheckIcon size={12} />
+              <CheckIcon size={theme.iconSizes.medium} />
             </StyledFakeInput>
 
             {isTextVisuallyHidden ? (
