@@ -128,6 +128,7 @@ export const StyledFakeInput = styled.span<{
   isInverse?: boolean;
   hasError?: boolean;
   textPosition?: CheckboxTextPosition;
+  isTextVisuallyHidden?: boolean;
   theme?: any;
 }>`
   ${DisplayInputStyles};
@@ -140,8 +141,11 @@ export const StyledFakeInput = styled.span<{
       : '0 0 0'};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   margin: ${props =>
-    props.textPosition === 'left' ? '2px 0 0 10px' : '2px 10px 0 0'};
-
+    props.isTextVisuallyHidden
+      ? '2px 0 0 0'
+      : props.textPosition === 'left'
+      ? '2px 0 0 10px'
+      : '2px 10px 0 0'};
   svg {
     display: ${props => (props.checked ? 'block' : 'none')};
     fill: ${props => buildCheckIconColor(props)};
@@ -253,6 +257,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               disabled={disabled}
               hasError={hasError}
               isInverse={context.isInverse || isInverse}
+              isTextVisuallyHidden={isTextVisuallyHidden}
               style={inputStyle}
               textPosition={textPosition}
               theme={theme}

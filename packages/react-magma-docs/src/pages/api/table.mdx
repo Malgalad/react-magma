@@ -1009,9 +1009,81 @@ export function Example() {
 }
 ```
 
+## Selectable
+
+The `Selectable` boolean prop allows interaction upon a table row.
+
+```tsx codesandbox=magma
+import React from 'react';
+import {
+  Card,
+  magma,
+  Table,
+  TableHead,
+  TableRow,
+  TableRowColor,
+  TableHeaderCell,
+  TableBody,
+  TableCell,
+} from 'react-magma-dom';
+
+export function Example() {
+  return (
+    <Card background={magma.colors.neutral} isInverse>
+      <Table isSelectable isInverse>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow color={TableRowColor.success}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.danger}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.info}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.warning}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
+  );
+}
+```
+
 ## Table Row Color
 
-The `TableRow` component, takes an optional `color` prop, to give contextual meaning to teh content. It accepts the values: `danger`, `info`, `success` and `warning`.
+The `TableRow` component, takes an optional `color` prop, to give contextual meaning to the content. It accepts the values: `danger`, `info`, `success` and `warning`.
 
 ```tsx codesandbox=magma
 import React from 'react';

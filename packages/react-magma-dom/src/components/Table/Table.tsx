@@ -24,6 +24,7 @@ export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
    */
   hasZebraStripes?: boolean;
   isInverse?: boolean;
+  isSelectable?: boolean;
   /**
    * Minimum width for the table in pixels
    * @default 600
@@ -65,6 +66,7 @@ interface TableContextInterface {
   hasVerticalBorders?: boolean;
   hasZebraStripes?: boolean;
   isInverse?: boolean;
+  isSelectable?: boolean;
 }
 
 export const TableContext = React.createContext<TableContextInterface>({
@@ -73,6 +75,7 @@ export const TableContext = React.createContext<TableContextInterface>({
   hasZebraStripes: false,
   hasVerticalBorders: false,
   isInverse: false,
+  isSelectable: false,
 });
 
 const TableContainer = styled.div`
@@ -102,6 +105,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
       hasVerticalBorders,
       hasZebraStripes,
       isInverse,
+      isSelectable,
       minWidth,
       testId,
       ...other
@@ -116,6 +120,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
           hasZebraStripes,
           hasVerticalBorders,
           isInverse,
+          isSelectable,
           density,
         }}
       >

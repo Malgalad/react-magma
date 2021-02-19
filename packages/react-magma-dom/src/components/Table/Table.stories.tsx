@@ -422,3 +422,109 @@ export const RowColorsInverse = () => {
     </Card>
   );
 };
+
+export const Selectable = () => {
+  return (
+    <Card>
+      <Table isSelectable>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
+  );
+};
+
+export const SelectableInverse = () => {
+  return (
+    <Card background={magma.colors.neutral} isInverse>
+      <Table isSelectable isInverse>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+            <TableHeaderCell>Column</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow color={TableRowColor.success}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.danger}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.info}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow color={TableRowColor.warning}>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Lorem ipsum</TableCell>
+            <TableCell>dolar sit</TableCell>
+            <TableCell>amet</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
+  );
+};

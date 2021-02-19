@@ -335,4 +335,17 @@ describe('Table', () => {
       target: ':hover',
     });
   });
+
+  it('should render checkboxes in selectable tables', () => {
+    const { container } = render(
+      <Table isSelectable>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell scope="row">heading</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+      </Table>
+    );
+    expect(container.querySelector('input')).toBeInTheDocument();
+  });
 });
