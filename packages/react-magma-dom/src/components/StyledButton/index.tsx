@@ -18,10 +18,12 @@ import {
 } from './styles';
 import { ThemeContext } from '../../theme/ThemeContext';
 import { ButtonProps } from '../Button';
+import { Spinner } from '../Spinner';
 
-interface StyledButtonProps extends ButtonProps {
+export interface StyledButtonProps extends ButtonProps {
   href?: string;
   iconOnly?: boolean;
+  isLoading?: boolean;
 }
 
 export const buttonStyles = props => css`
@@ -126,12 +128,12 @@ export const StyledButton = React.forwardRef<
   HTMLButtonElement,
   StyledButtonProps
 >((props, ref) => {
-  const { children, testId, ...other } = props;
+  const { children, testId, isLoading, ...other } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
-    <BaseStyledButton {...other} data-testid={testId} ref={ref} theme={theme}>
-      {children}
+    <BaseStyledButton {...other} data-testid={testId} ref={ref} theme={theme} disabled={isLoading || props.disabled}>
+      { isLoading ? <Spinner color={props.isInverse ? theme.colors.neutral08 : theme.colors.neutral03} /> : children}
     </BaseStyledButton>
   );
 });
