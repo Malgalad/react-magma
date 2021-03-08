@@ -128,12 +128,14 @@ export const StyledButton = React.forwardRef<
   HTMLButtonElement,
   StyledButtonProps
 >((props, ref) => {
-  const { children, testId, isLoading, ...other } = props;
+  const { isInverse, children, testId, isLoading, ...other } = props;
   const theme = React.useContext(ThemeContext);
+
+  const spinnerColor = isInverse ? theme.colors.neutral08 : theme.colors.neutral03
 
   return (
     <BaseStyledButton {...other} data-testid={testId} ref={ref} theme={theme} disabled={isLoading || props.disabled}>
-      { isLoading ? <Spinner color={props.isInverse ? theme.colors.neutral08 : theme.colors.neutral03} /> : children}
+      { isLoading ? <Spinner color={spinnerColor} /> : children}
     </BaseStyledButton>
   );
 });
