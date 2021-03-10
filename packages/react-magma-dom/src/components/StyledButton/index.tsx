@@ -128,7 +128,7 @@ export const StyledButton = React.forwardRef<
   HTMLButtonElement,
   StyledButtonProps
 >((props, ref) => {
-  const { size, variant = ButtonVariant.solid, isInverse, children, testId, isLoading } = props;
+  const { size, variant, isInverse, children, testId, isLoading } = props;
   const theme = React.useContext(ThemeContext);
 
   const spinnerColor = isInverse && (variant === ButtonVariant.outline || variant === ButtonVariant.link) ? theme.colors.neutral08 : theme.colors.neutral03;
