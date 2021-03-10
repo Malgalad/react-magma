@@ -17,7 +17,7 @@ import {
   buildFocusColor,
 } from './styles';
 import { ThemeContext } from '../../theme/ThemeContext';
-import { ButtonProps } from '../Button';
+import { ButtonProps, ButtonSize, ButtonVariant } from '../Button';
 import { Spinner } from '../Spinner';
 
 export interface StyledButtonProps extends ButtonProps {
@@ -128,14 +128,15 @@ export const StyledButton = React.forwardRef<
   HTMLButtonElement,
   StyledButtonProps
 >((props, ref) => {
-  const { isInverse, children, testId, isLoading, ...other } = props;
+  const { size, variant = ButtonVariant.solid, isInverse, children, testId, isLoading } = props;
   const theme = React.useContext(ThemeContext);
 
-  const spinnerColor = isInverse ? theme.colors.neutral08 : theme.colors.neutral03
+  const spinnerColor = isInverse && (variant === ButtonVariant.outline || variant === ButtonVariant.link) ? theme.colors.neutral08 : theme.colors.neutral03;
+  const spinnerSize = size === ButtonSize.small ? theme.iconSizes.xSmall : size === ButtonSize.large ? theme.iconSizes.large : theme.iconSizes.medium;
 
   return (
-    <BaseStyledButton {...other} data-testid={testId} ref={ref} theme={theme} disabled={isLoading || props.disabled}>
-      { isLoading ? <Spinner color={spinnerColor} /> : children}
+    <BaseStyledButton {...props} data-testid={testId} ref={ref} theme={theme} disabled={isLoading || props.disabled}>
+      { isLoading ? <Spinner color={spinnerColor} size={spinnerSize} /> : children}
     </BaseStyledButton>
   );
 });
