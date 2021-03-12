@@ -9,7 +9,7 @@ import {
   ButtonTextTransform,
   ButtonVariant,
 } from '.';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 describe('Button', () => {
   it('should correctly apply the testId', () => {
@@ -27,6 +27,16 @@ describe('Button', () => {
 
     expect(getByText(buttonText)).toBeInTheDocument();
   });
+
+  it('should run the clickHandler on click', () => {
+    const buttonText = 'Test';
+    const clickHandler = jest.fn();
+    const { getByText } = render(< Button onClick={clickHandler} >{buttonText}</ Button >);
+    const button = getByText(buttonText);
+
+    fireEvent.click(button);
+    expect(clickHandler).toHaveBeenCalled();
+  }); 
 
   it('A text-only button does not violate detectible accessibility standards', () => {
     const { container } = render(<Button>click</Button>);
