@@ -57,7 +57,7 @@ describe('Button', () => {
     );
     expect(getByTestId(testId)).toBeInTheDocument();
     expect(getByTestId(spinnerTestId)).toBeInTheDocument();
-    expect(queryByText(buttonText)).not.toBeInTheDocument();
+    expect(queryByText(buttonText)).not.toBeVisible();
     rerender(
       <Button testId={testId} isLoading={false}>
         {buttonText}

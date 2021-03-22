@@ -149,7 +149,7 @@ export const StyledButton = React.forwardRef<
     display: flex;
   `;
 
-  const ChildrenWrapper = styled.div`
+  const ChildrenWrapper = styled.div<{ isLoading: boolean }>`
     visibility: ${props => (props.isLoading ? 'hidden' : 'visible')};
   `;
 
