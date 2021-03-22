@@ -73,7 +73,7 @@ describe('Banner', () => {
   });
 
   it('should render an action button with danger styles', () => {
-    const { getByText, debug } = render(
+    const { getByText } = render(
       <Banner
         actionButtonText="btn text"
         actionButtonOnClick={() => {}}
@@ -82,8 +82,11 @@ describe('Banner', () => {
         Test
       </Banner>
     );
-    debug();
-    expect(getByText('btn text')).toHaveStyleRule('color', magma.colors.danger);
+
+    expect(getByText('btn text').parentElement).toHaveStyleRule(
+      'color',
+      magma.colors.danger
+    );
   });
 
   it('should render an action button with success styles', () => {
