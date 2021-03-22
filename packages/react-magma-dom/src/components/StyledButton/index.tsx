@@ -111,13 +111,13 @@ export const buttonStyles = props => css`
   }
 
   ${props.iconOnly &&
-    css`
-      display: inline-flex;
-      justify-content: center;
-      line-height: 1;
-      min-width: 0;
-      padding: 0;
-    `}
+  css`
+    display: inline-flex;
+    justify-content: center;
+    line-height: 1;
+    min-width: 0;
+    padding: 0;
+  `}
 `;
 
 export const BaseStyledButton = styled.button`
@@ -131,12 +131,46 @@ export const StyledButton = React.forwardRef<
   const { size, variant, isInverse, children, testId, isLoading } = props;
   const theme = React.useContext(ThemeContext);
 
-  const spinnerColor = isInverse && (variant === ButtonVariant.outline || variant === ButtonVariant.link) ? theme.colors.neutral08 : theme.colors.neutral03;
-  const spinnerSize = size === ButtonSize.small ? theme.iconSizes.xSmall : size === ButtonSize.large ? theme.iconSizes.large : theme.iconSizes.medium;
+  const spinnerColor =
+    isInverse &&
+    (variant === ButtonVariant.outline || variant === ButtonVariant.link)
+      ? theme.colors.neutral08
+      : theme.colors.neutral03;
+
+  const spinnerSize =
+    size === ButtonSize.small
+      ? theme.iconSizes.xSmall
+      : size === ButtonSize.large
+      ? theme.iconSizes.large
+      : theme.iconSizes.medium;
+
+  const SpinnerWrapper = styled.div`
+    position: absolute;
+    display: flex;
+  `;
+
+  const ChildrenWrapper = styled.div`
+    visibility: ${props => (props.isLoading ? 'hidden' : 'visible')};
+  `;
 
   return (
-    <BaseStyledButton {...props} data-testid={testId} ref={ref} theme={theme} disabled={isLoading || props.disabled}>
-      { isLoading ? <Spinner color={spinnerColor} size={spinnerSize} /> : children}
+    <BaseStyledButton
+      {...props}
+      data-testid={testId}
+      ref={ref}
+      theme={theme}
+      disabled={isLoading || props.disabled}
+    >
+      {isLoading && (
+        <SpinnerWrapper>
+          <Spinner
+            testId={`${testId}-spinner`}
+            color={spinnerColor}
+            size={spinnerSize}
+          />
+        </SpinnerWrapper>
+      )}
+      <ChildrenWrapper isLoading={isLoading}>{children}</ChildrenWrapper>
     </BaseStyledButton>
   );
 });

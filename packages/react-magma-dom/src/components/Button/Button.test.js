@@ -31,15 +31,51 @@ describe('Button', () => {
   it('should run the clickHandler on click', () => {
     const buttonText = 'Test';
     const clickHandler = jest.fn();
-    const { getByText } = render(< Button onClick={clickHandler} >{buttonText}</ Button >);
+    const { getByText } = render(
+      <Button onClick={clickHandler}>{buttonText}</Button>
+    );
     const button = getByText(buttonText);
 
     fireEvent.click(button);
     expect(clickHandler).toHaveBeenCalled();
-  }); 
+  });
+
+  it('shows a spinner icon when isLoading is true', () => {
+    const buttonText = 'Test';
+    const testId = 'test-id';
+    const spinnerTestId = `${testId}-spinner`;
+    const {
+      getByTestId,
+      getByText,
+      queryByText,
+      rerender,
+      queryByTestId,
+    } = render(
+      <Button testId={testId} isLoading>
+        {buttonText}
+      </Button>
+    );
+    expect(getByTestId(testId)).toBeInTheDocument();
+    expect(getByTestId(spinnerTestId)).toBeInTheDocument();
+    expect(queryByText(buttonText)).not.toBeInTheDocument();
+    rerender(
+      <Button testId={testId} isLoading={false}>
+        {buttonText}
+      </Button>
+    );
+    expect(queryByTestId(spinnerTestId)).not.toBeInTheDocument();
+    expect(getByText(buttonText)).toBeInTheDocument();
+  });
 
   it('A text-only button does not violate detectible accessibility standards', () => {
     const { container } = render(<Button>click</Button>);
+    return axe(container.innerHTML).then(result => {
+      return expect(result).toHaveNoViolations();
+    });
+  });
+
+  it('A button in the loading state does not violate detectible accessibility standards', () => {
+    const { container } = render(<Button isLoading>click</Button>);
     return axe(container.innerHTML).then(result => {
       return expect(result).toHaveNoViolations();
     });
