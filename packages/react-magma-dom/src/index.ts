@@ -87,7 +87,7 @@ export {
   IconButton,
   ButtonIconPosition,
   IconButtonProps,
-} from './components/IconButton';
+} from './components/IconButton/IconButton';
 export {
   IndeterminateCheckbox,
   IndeterminateCheckboxProps,
