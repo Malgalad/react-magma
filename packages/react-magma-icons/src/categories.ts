@@ -1083,7 +1083,6 @@ export const categories = {
     'PlumbingIcon',
     'RateReviewIcon',
     'RestaurantIcon',
-    'RestaurantMenuIcon',
     'RunCircleIcon',
     'SatelliteIcon',
     'SetMealIcon',

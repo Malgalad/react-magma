@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
 import { StyledButton } from '../StyledButton';
 import {
   ButtonProps,
@@ -10,9 +9,10 @@ import {
   ButtonTextTransform,
 } from '../Button';
 import { IconProps } from 'react-magma-icons';
-import { omit, Omit, XOR } from '../../utils';
+import { Omit, XOR } from '../../utils';
 import { ThemeContext } from '../../theme/ThemeContext';
 import { ThemeInterface } from '../../theme/magma';
+import { Spacer } from '../Spacer';
 
 export enum ButtonIconPosition {
   left = 'left',
@@ -45,12 +45,11 @@ export interface IconTextButtonProps extends ButtonProps {
 
 export type IconButtonProps = XOR<IconOnlyButtonProps, IconTextButtonProps>;
 
-export interface SpanProps {
+export interface ButtonIconProps {
   size?: ButtonSize;
   iconPosition?: ButtonIconPosition;
   children ?: React.ReactElement;
   theme ?: ThemeInterface;
-  className?: string;
 }
 
 function getIconPadding(props) {
@@ -75,19 +74,10 @@ function getIconSize(size, theme) {
   }
 }
 
-export const ButtonIcon = (props:SpanProps) => {
-  const { children } = props
-
-  const _icon = React.cloneElement(children, {
-    size: children.props.size ? children.props.size : getIconSize(props.size, props.theme),
+export const ButtonIcon = ({children, size, theme}:ButtonIconProps) => {
+  return React.cloneElement(children, {
+    size: children.props.size ? children.props.size : getIconSize(size, theme),
   })
-
-  const Wrapper = styled.div`
-    margin-left: ${props.iconPosition === 'left' ? 'inherit' : getIconPadding(props)};
-    margin-right: ${props.iconPosition === 'right' ? 'inherit' : getIconPadding(props)};
-  `;
-
-  return <Wrapper>{_icon}</Wrapper>
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -107,7 +97,9 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         iconOnly={!children}
       >
         {iconPosition === ButtonIconPosition.left && <ButtonIcon size={size} theme={theme} >{icon}</ButtonIcon>}
+        {iconPosition === ButtonIconPosition.left && children && <Spacer size={getIconPadding({size, theme})}/>}
         {children}
+        {iconPosition === ButtonIconPosition.right && children && <Spacer size={getIconPadding({size, theme})}/>}
         {iconPosition === ButtonIconPosition.right && <ButtonIcon size={size} theme={theme} >{icon}</ButtonIcon>}
       </StyledButton>
     );

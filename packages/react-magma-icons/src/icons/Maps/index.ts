@@ -102,7 +102,6 @@ export { PlaceIcon } from './PlaceIcon';
 export { PlumbingIcon } from './PlumbingIcon';
 export { RateReviewIcon } from './RateReviewIcon';
 export { RestaurantIcon } from './RestaurantIcon';
-export { RestaurantMenuIcon } from './RestaurantMenuIcon';
 export { RunCircleIcon } from './RunCircleIcon';
 export { SatelliteIcon } from './SatelliteIcon';
 export { SetMealIcon } from './SetMealIcon';
