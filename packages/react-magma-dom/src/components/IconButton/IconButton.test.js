@@ -1,4 +1,3 @@
-/// <reference types="jest-dom/extend-expect"/>
 import React from 'react';
 import { axe } from 'jest-axe';
 import { render } from '@testing-library/react';
@@ -24,47 +23,6 @@ describe('IconButton', () => {
     });
   });
 
-  it('A button in the loading state does not violate detectible accessibility standards', () => {
-    const icon = <CheckIcon />;
-    const { container } = render(
-      <IconButton icon={icon} isLoading>
-        click
-      </IconButton>
-    );
-
-    return axe(container.innerHTML).then(result => {
-      return expect(result).toHaveNoViolations();
-    });
-  });
-
-  it('shows a spinner icon when isLoading is true', () => {
-    const icon = <CheckIcon />;
-    const buttonText = 'Test';
-    const testId = 'test-id';
-    const spinnerTestId = `${testId}-spinner`;
-    const {
-      getByTestId,
-      getByText,
-      queryByText,
-      rerender,
-      queryByTestId,
-    } = render(
-      <IconButton icon={icon} testId={testId} isLoading>
-        {buttonText}
-      </IconButton>
-    );
-    expect(getByTestId(testId)).toBeInTheDocument();
-    expect(getByTestId(spinnerTestId)).toBeInTheDocument();
-    expect(queryByText(buttonText)).not.toBeVisible();
-    rerender(
-      <IconButton icon={icon} testId={testId} isLoading={false}>
-        {buttonText}
-      </IconButton>
-    );
-    expect(queryByTestId(spinnerTestId)).not.toBeInTheDocument();
-    expect(getByText(buttonText)).toBeInTheDocument();
-  });
-
   describe('Icon Only Button', () => {
     it('should render an icon only button with passed in icon', () => {
       const icon = <CheckIcon />;
@@ -74,33 +32,6 @@ describe('IconButton', () => {
       );
 
       expect(getByLabelText(buttonLabel)).toBeInTheDocument();
-    });
-
-    it('shows a spinner icon when isLoading is true', () => {
-      const icon = <CheckIcon />;
-      const buttonText = 'Test';
-      const testId = 'test-id';
-      const spinnerTestId = `${testId}-spinner`;
-      const { getByTestId, rerender, queryByTestId } = render(
-        <IconButton
-          icon={icon}
-          testId={testId}
-          isLoading
-          aria-label={buttonText}
-        />
-      );
-      expect(getByTestId(testId)).toBeInTheDocument();
-      expect(getByTestId(spinnerTestId)).toBeInTheDocument();
-
-      rerender(
-        <IconButton
-          icon={icon}
-          testId={testId}
-          isLoading={false}
-          aria-label={buttonText}
-        />
-      );
-      expect(queryByTestId(spinnerTestId)).not.toBeInTheDocument();
     });
 
     describe('Size', () => {
@@ -285,15 +216,16 @@ describe('IconButton', () => {
       const buttonText = 'Click me';
       const icon = <CheckIcon />;
 
-      const { container, getByText } = render(
+      const { container } = render(
         <IconButton iconPosition={ButtonIconPosition.left} icon={icon}>
           {buttonText}
         </IconButton>
       );
 
-      const [firstEl, secondEl] = container.firstChild.childNodes;
+      const [firstEl, secondEl, thirdEl] = container.firstChild.childNodes;
       expect(firstEl.nodeName).toBe('svg');
-      expect(getByText(buttonText)).toBe(secondEl);
+      expect(secondEl.nodeName).toBe('SPAN');
+      expect(thirdEl.textContent).toBe(buttonText);
     });
 
     it('should change padding based on position and size', () => {
@@ -309,7 +241,7 @@ describe('IconButton', () => {
       );
 
       expect(container.querySelector('span')).toHaveStyleRule(
-        'padding-left',
+        'width',
         magma.spaceScale.spacing05
       );
     });

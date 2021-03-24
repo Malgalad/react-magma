@@ -248,7 +248,7 @@ describe('Dropdown', () => {
     );
 
     expect(container.querySelector('span')).toHaveStyleRule(
-      'padding-left',
+      'width',
       magma.spaceScale.spacing03
     );
 
@@ -267,7 +267,7 @@ describe('Dropdown', () => {
     );
 
     expect(container.querySelector('span')).toHaveStyleRule(
-      'padding-right',
+      'width',
       magma.spaceScale.spacing03
     );
   });
@@ -367,16 +367,16 @@ describe('Dropdown', () => {
   });
 
   it('should close the menu the dropdown button is focused and the tab key is pressed', () => {
-    const { getByText, getByTestId } = render(
-      <Dropdown testId="dropdown">
-        <DropdownButton>Toggle me</DropdownButton>
+    const { getByTestId } = render(
+      <Dropdown>
+        <DropdownButton testId="dropdownButton">Toggle me</DropdownButton>
         <DropdownContent>
           <DropdownMenuItem>Menu item</DropdownMenuItem>
         </DropdownContent>
       </Dropdown>
     );
 
-    const toggleButton = getByText('Toggle me').parentElement;
+    const toggleButton = getByTestId('dropdownButton');
     expect(getByTestId('dropdownContent')).toHaveStyleRule('display', 'none');
 
     fireEvent.click(toggleButton);
@@ -394,16 +394,16 @@ describe('Dropdown', () => {
   });
 
   it('should close the menu the dropdown button is focused and shift + the tab key is pressed', () => {
-    const { getByText, getByTestId } = render(
-      <Dropdown testId="dropdown">
-        <DropdownButton>Toggle me</DropdownButton>
+    const { getByTestId } = render(
+      <Dropdown>
+        <DropdownButton testId="dropdownButton">Toggle me</DropdownButton>
         <DropdownContent>
           <DropdownMenuItem>Menu item</DropdownMenuItem>
         </DropdownContent>
       </Dropdown>
     );
 
-    const toggleButton = getByText('Toggle me').parentElement;
+    const toggleButton = getByTestId('dropdownButton');
     expect(getByTestId('dropdownContent')).toHaveStyleRule('display', 'none');
 
     fireEvent.click(toggleButton);
