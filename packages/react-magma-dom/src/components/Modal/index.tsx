@@ -33,6 +33,10 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   closeAriaLabel?: string;
   /**
+   * Style for the modal container
+   */
+  containerStyle?: React.CSSProperties;
+  /**
    * The content of the modal header
    */
   header?: React.ReactNode;
@@ -76,7 +80,9 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: ThemeInterface;
 }
 
-const ModalContainer = styled.div<{ theme: ThemeInterface }>`
+const ModalContainer = styled.div<{
+  theme: ThemeInterface;
+}>`
   bottom: 0;
   left: 0;
   overflow-y: auto;
@@ -151,6 +157,50 @@ const ModalContent = styled.div<ModalProps & { isExiting?: boolean }>`
     to {
       opacity: 0;
       transform: translate(0, -50px);
+    }
+  }
+
+  @keyframes fadeSlideRightIn {
+    from {
+      opacity: 0;
+      transform: translate(-50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes fadeSlideRightOut {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50px, 0);
+    }
+  }
+
+  @keyframes fadeSlideLeftIn {
+    from {
+      opacity: 0;
+      transform: translate(50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes fadeSlideLeftOut {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(50px, 0);
     }
   }
 
@@ -353,6 +403,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const {
       children,
       closeAriaLabel,
+      containerStyle,
       isBackgroundClickDisabled,
       isEscKeyDownDisabled,
       header,
@@ -393,6 +444,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
               }
               ref={focusTrapElement}
               role="dialog"
+              style={containerStyle}
               theme={theme}
             >
               <ModalContent
