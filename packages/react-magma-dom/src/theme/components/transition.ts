@@ -13,48 +13,46 @@ export interface ThemeTransitions {
 
 export const transitions: ThemeTransitions = {
   fade: {
-    motion:{
-      exit: { 
+    motion: {
+      exit: {
         opacity: 0,
-        transition: { 
+        transition: {
           opacity: {
-            duration: .1,
+            duration: 0.1,
             ease: 'easeOut',
-          }
-        }
+          },
+        },
       },
-      enter: { 
+      enter: {
         opacity: 1,
-        transition: { 
+        transition: {
           duration: 0.2,
           ease: 'easeIn',
-        }
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   slideTop: {
-    motion:{
+    motion: {
       exit: {
         y: '-100%',
         transition: {
           y: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         y: '0',
         transition: {
           y: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
     baseStyle: {
@@ -65,25 +63,25 @@ export const transitions: ThemeTransitions = {
     },
   },
   slideBottom: {
-    motion:{
+    motion: {
       exit: {
         y: '100%',
         transition: {
           y: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         y: '0',
         transition: {
           y: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
     baseStyle: {
@@ -94,25 +92,25 @@ export const transitions: ThemeTransitions = {
     },
   },
   slideRight: {
-    motion:{
+    motion: {
       exit: {
         x: '100%',
         transition: {
           x: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         x: '0',
         transition: {
           x: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
     baseStyle: {
@@ -123,25 +121,25 @@ export const transitions: ThemeTransitions = {
     },
   },
   slideLeft: {
-    motion:{
+    motion: {
       exit: {
         x: '-100%',
         transition: {
           x: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         x: '0',
         transition: {
           x: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
     baseStyle: {
@@ -152,151 +150,141 @@ export const transitions: ThemeTransitions = {
     },
   },
   nudgeTop: {
-    motion:{
+    motion: {
       exit: {
         y: '-50px',
         transition: {
           y: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         y: '0',
         transition: {
           y: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   nudgeBottom: {
-    motion:{
+    motion: {
       exit: {
         y: '50px',
         transition: {
           y: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         y: '0',
         transition: {
           y: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   nudgeRight: {
-    motion:{
+    motion: {
       exit: {
         x: '50px',
         transition: {
           x: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         x: '0',
         transition: {
           x: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   nudgeLeft: {
-    motion:{
+    motion: {
       exit: {
         x: '-50px',
         transition: {
           x: {
             duration: 0.15,
-            ease: 'easeInOut'
-          }
-        }
+            ease: 'easeInOut',
+          },
+        },
       },
       enter: {
         x: '0',
         transition: {
           x: {
-            type: "spring",
+            type: 'spring',
             damping: 25,
             stiffness: 180,
-          }
-        }
+          },
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   scale: {
-    motion:{
+    motion: {
       exit: {
         scale: 0.95,
         transition: {
-          scale:{
+          scale: {
             duration: 0.1,
             ease: 'easeOut',
-          }
+          },
         },
       },
       enter: {
         scale: 1,
         transition: {
-          scale:{
+          scale: {
             duration: 0.25,
             ease: 'easeInOut',
-          }
-        }
+          },
+        },
       },
     },
-    baseStyle: {
-
-    },
+    baseStyle: {},
   },
   collapse: {
-    motion:{
+    motion: {
       exit: {
         height: 0,
         transition: {
           height: { duration: 0.2, ease: 'easeInOut' },
-        }
+        },
       },
       enter: {
         height: 'auto',
         transition: {
           height: { duration: 0.3, ease: 'easeInOut' },
-        }
+        },
       },
     },
     baseStyle: {
-      overflow: 'hidden'
+      overflow: 'hidden',
     },
   },
 };

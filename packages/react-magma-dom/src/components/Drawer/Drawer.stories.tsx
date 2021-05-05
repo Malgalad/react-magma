@@ -19,7 +19,7 @@ const info = {
 
 export default info;
 
-export const Default = args => {
+export const Default = props => {
   const [showDrawer, setShowDrawer] = React.useState(false);
 
   return (
@@ -28,7 +28,7 @@ export const Default = args => {
         header="Drawer Title"
         onClose={() => setShowDrawer(false)}
         isOpen={showDrawer}
-        {...args}
+        position={DrawerPosition.bottom}
       >
         <p>This is a Drawer, doing Drawer things.</p>
         <p>

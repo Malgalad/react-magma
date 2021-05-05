@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ThemeContext } from '../../theme/ThemeContext';
 import { Modal, ModalProps } from '../Modal';
+import { Transition } from '../Transition';
 
 export enum DrawerPosition {
   top = 'top',
@@ -9,10 +9,10 @@ export enum DrawerPosition {
   right = 'right',
 }
 
-/**
- * @children required
- */
 export interface DrawerProps extends ModalProps {
+  /**
+   * @children required
+   */
   testId?: string;
   /**
    * Style properties for the drawer
@@ -23,34 +23,54 @@ export interface DrawerProps extends ModalProps {
    */
   containerStyle?: React.CSSProperties;
   /**
+   * Style properties for the drawer
+   */
+  drawerStyle?: React.CSSProperties;
+  /**
    * Set the position of the drawer
    */
   position?: DrawerPosition;
 }
 
+const transitionPreset: {
+  [key in DrawerPosition]: { [key: string]: boolean };
+} = {
+  top: { slideTop: true },
+  bottom: { slideBottom: true },
+  left: { slideLeft: true },
+  right: { slideRight: true },
+};
+
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
   (props, ref) => {
     const {
-      style,
+      children,
       containerStyle,
-      position = DrawerPosition.left,
+      drawerStyle,
+      position,
+      style,
+      theme,
       ...rest
     } = props;
-    const theme = React.useContext(ThemeContext);
-    const drawerStyle = {
-      ...theme.drawer.default,
-      ...theme.drawer[DrawerPosition[position]],
-    } as React.CSSProperties;
     return (
-      <Modal
-        containerStyle={{
-          padding: '0',
-          position: 'absolute',
-          ...containerStyle,
-        }}
-        style={{ ...drawerStyle, ...style }}
-        {...rest}
-      />
+      <>
+        <Transition {...transitionPreset[position]}>
+          <Modal
+            containerStyle={{
+              ...containerStyle,
+              ...rest,
+            }}
+            style={{
+              margin: '0',
+              maxWidth: '100%',
+              borderRadius: '0',
+              ...style,
+              ...drawerStyle,
+            }}
+            {...rest}
+          />
+        </Transition>
+      </>
     );
   }
 );

@@ -16,6 +16,7 @@ import { Heading } from '../Heading';
 import { TypographyVisualStyle } from '../Typography';
 import { ThemeInterface } from '../../theme/magma';
 import { omit, useGenerateId, usePrevious } from '../../utils';
+import { Transition } from '../Transition';
 
 export enum ModalSize {
   large = 'large',
@@ -80,7 +81,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: ThemeInterface;
 }
 
-const ModalContainer = styled.div<{
+export const ModalContainer = styled.div<{
   theme: ThemeInterface;
 }>`
   bottom: 0;
@@ -94,7 +95,6 @@ const ModalContainer = styled.div<{
 `;
 
 const ModalBackdrop = styled.div<{ isExiting?: boolean }>`
-  animation: ${props => (props.isExiting ? 'fadeout 500ms' : 'fadein 500ms')};
   backdrop-filter: blur(3px);
   background: rgba(0, 0, 0, 0.6);
   bottom: 0;
@@ -126,8 +126,6 @@ const ModalBackdrop = styled.div<{ isExiting?: boolean }>`
 `;
 
 const ModalContent = styled.div<ModalProps & { isExiting?: boolean }>`
-  animation: ${props =>
-    props.isExiting ? 'fadeSlideOut 500ms' : 'fadeSlideIn 500ms'};
   background: ${props => props.theme.colors.neutral08};
   border: 1px solid;
   border-color: ${props => props.theme.colors.neutral06};
@@ -137,72 +135,6 @@ const ModalContent = styled.div<ModalProps & { isExiting?: boolean }>`
   margin: 0 auto;
   position: relative;
   z-index: 1000;
-
-  @keyframes fadeSlideIn {
-    from {
-      opacity: 0;
-      transform: translate(0, -50px);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  @keyframes fadeSlideOut {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(0, -50px);
-    }
-  }
-
-  @keyframes fadeSlideRightIn {
-    from {
-      opacity: 0;
-      transform: translate(-50px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  @keyframes fadeSlideRightOut {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(-50px, 0);
-    }
-  }
-
-  @keyframes fadeSlideLeftIn {
-    from {
-      opacity: 0;
-      transform: translate(50px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-  }
-
-  @keyframes fadeSlideLeftOut {
-    from {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(50px, 0);
-    }
-  }
 
   max-width: ${props => {
     switch (props.size) {
@@ -423,7 +355,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     return isModalOpen
       ? ReactDOM.createPortal(
-          <>
+          <Transition fade in>
             <Global
               styles={css`
                 html {
@@ -431,7 +363,6 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                 }
               `}
             />
-
             <ModalContainer
               aria-labelledby={headingId}
               aria-modal={true}
@@ -447,50 +378,52 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
               style={containerStyle}
               theme={theme}
             >
-              <ModalContent
-                {...other}
-                data-testid="modal-content"
-                id={contentId}
-                isExiting={isExiting}
-                ref={ref}
-                theme={theme}
-              >
-                {header && (
-                  <ModalHeader theme={theme}>
-                    {header && (
-                      <H1
-                        id={headingId}
-                        level={1}
-                        ref={headingRef}
-                        visualStyle={TypographyVisualStyle.headingSmall}
-                        tabIndex={-1}
-                        theme={theme}
-                      >
-                        {header}
-                      </H1>
-                    )}
-                  </ModalHeader>
-                )}
-                <ModalBody ref={bodyRef} theme={theme}>
-                  {children}
-                </ModalBody>
-                {!isCloseButtonHidden && (
-                  <CloseBtn>
-                    <IconButton
-                      aria-label={
-                        closeAriaLabel
-                          ? closeAriaLabel
-                          : i18n.modal.closeAriaLabel
-                      }
-                      color={ButtonColor.secondary}
-                      icon={CloseIconButton}
-                      onClick={handleClose}
-                      testId="modal-closebtn"
-                      variant={ButtonVariant.link}
-                    />
-                  </CloseBtn>
-                )}
-              </ModalContent>
+              <Transition slideTop in>
+                <ModalContent
+                  {...other}
+                  data-testid="modal-content"
+                  id={contentId}
+                  isExiting={isExiting}
+                  ref={ref}
+                  theme={theme}
+                >
+                  {header && (
+                    <ModalHeader theme={theme}>
+                      {header && (
+                        <H1
+                          id={headingId}
+                          level={1}
+                          ref={headingRef}
+                          visualStyle={TypographyVisualStyle.headingSmall}
+                          tabIndex={-1}
+                          theme={theme}
+                        >
+                          {header}
+                        </H1>
+                      )}
+                    </ModalHeader>
+                  )}
+                  <ModalBody ref={bodyRef} theme={theme}>
+                    {children}
+                  </ModalBody>
+                  {!isCloseButtonHidden && (
+                    <CloseBtn>
+                      <IconButton
+                        aria-label={
+                          closeAriaLabel
+                            ? closeAriaLabel
+                            : i18n.modal.closeAriaLabel
+                        }
+                        color={ButtonColor.secondary}
+                        icon={CloseIconButton}
+                        onClick={handleClose}
+                        testId="modal-closebtn"
+                        variant={ButtonVariant.link}
+                      />
+                    </CloseBtn>
+                  )}
+                </ModalContent>
+              </Transition>
             </ModalContainer>
             <ModalBackdrop
               data-testid="modal-backdrop"
@@ -501,7 +434,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
                   : null
               }
             />
-          </>,
+          </Transition>,
           document.getElementsByTagName('body')[0]
         )
       : null;
