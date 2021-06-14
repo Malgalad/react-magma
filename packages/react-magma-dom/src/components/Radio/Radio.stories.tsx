@@ -3,6 +3,8 @@ import { Card, CardBody } from '../Card';
 import { magma } from '../../theme/magma';
 import { Radio } from '.';
 import { RadioGroup } from '../RadioGroup';
+import { ArrowRightAltIcon, CheckIcon, CrossIcon } from 'react-magma-icons';
+import { Button } from '../Button';
 
 export default {
   component: Radio,
@@ -98,6 +100,97 @@ export const Inverse = () => {
           </RadioGroup>
         </CardBody>
       </Card>
+    </>
+  );
+};
+
+// interface MultiChoiceProps extends RadioGroupProps {
+//   correctAnswer: string;
+//   questionLabel: string;
+//   questionOptions: Array<RadioProps>;
+//   isSubmitted?: boolean;
+// }
+
+export const MultiChoice = props => {
+  const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false);
+
+  function handleQuestionSubmit() {
+    setIsSubmitted(true);
+  }
+
+  const questionOptions = [
+    {
+      labelText: 'Seed count',
+      value: 'seedCount',
+    },
+    {
+      labelText: 'Incubation time',
+      value: 'incubationTime',
+    },
+    {
+      labelText: 'Amount of water',
+      value: 'amountOfWater',
+    },
+    {
+      labelText: 'Temperature',
+      value: 'temperature',
+    },
+  ];
+  const correctAnswer = 'amountOfWater';
+  const questionLabel = 'What was the independent variable in the experiment';
+
+  const [chosenAnswer, setChosenAnswer] = React.useState<string>('');
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setChosenAnswer(event.target.value);
+  }
+
+  return (
+    <>
+      <RadioGroup
+        labelText={questionLabel}
+        name={name}
+        value={chosenAnswer}
+        onChange={handleChange}
+      >
+        {questionOptions.map((option, index) => {
+          const isChosenAnswerAfterSubmit =
+            isSubmitted && chosenAnswer === option.value;
+
+          const isCorrectAnswer = correctAnswer === option.value;
+
+          const radioPropOverrides = isChosenAnswerAfterSubmit
+            ? isCorrectAnswer
+              ? { color: 'green', validationIcon: <CheckIcon color="green" /> }
+              : { color: 'red', validationIcon: <CrossIcon color="red" /> }
+            : isSubmitted && isCorrectAnswer
+            ? {
+                labelText: (
+                  <>
+                    {option.labelText}{' '}
+                    <span
+                      style={{
+                        color: 'green',
+                        fontSize: '12px',
+                        paddingLeft: '10px',
+                      }}
+                    >
+                      Correct Answer
+                    </span>
+                  </>
+                ),
+                validationIcon: <ArrowRightAltIcon color="green" />,
+              }
+            : {};
+
+          return (
+            <>
+              <Radio key={index} {...option} {...radioPropOverrides} />
+            </>
+          );
+        })}
+      </RadioGroup>
+      <Button onClick={handleQuestionSubmit}>Submit</Button>
     </>
   );
 };

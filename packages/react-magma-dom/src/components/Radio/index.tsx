@@ -8,6 +8,7 @@ import {
 import { HiddenStyles } from '../../utils/UtilityStyles';
 import { RadioContext } from '../RadioGroup';
 import {
+  IconProps,
   RadioButtonCheckedIcon,
   RadioButtonUncheckedIcon,
 } from 'react-magma-icons';
@@ -63,6 +64,7 @@ export interface RadioProps
    * @default RadioTextPosition.right
    */
   textPosition?: RadioTextPosition;
+  validationIcon?: React.ReactElement<IconProps>;
 }
 
 const HiddenLabelText = styled.span`
@@ -162,11 +164,13 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       testId,
       textPosition,
       value,
+      validationIcon,
       ...other
     } = props;
 
     return (
       <StyledContainer style={containerStyle}>
+        {validationIcon}
         <HiddenInput
           {...other}
           aria-labelledby={context.descriptionId}
