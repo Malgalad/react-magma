@@ -40,6 +40,11 @@ export interface InputBaseProps
    */
   hasError?: boolean;
   /**
+   * Input has help icon
+   * @default false
+   */
+  helpIcon?: boolean;
+  /**
    * Icon to display within the component
    */
   icon?: React.ReactElement<IconProps>;
@@ -93,6 +98,7 @@ export interface InputWrapperStylesProps {
   isClearable?: boolean;
   theme?: ThemeInterface;
   hasError?: boolean;
+  helpIcon?: boolean;
   disabled?: boolean;
 }
 
@@ -141,6 +147,7 @@ export const inputWrapperStyles = (props: InputWrapperStylesProps) => css`
 `;
 
 export interface InputBaseStylesProps {
+  helpIcon?: boolean;
   isInverse?: boolean;
   iconPosition?: InputIconPosition;
   inputSize?: InputSize;
@@ -149,7 +156,7 @@ export interface InputBaseStylesProps {
 }
 
 export const inputBaseStyles = (props: InputBaseStylesProps) => css`
-  border: 0;
+  border: ${props.helpIcon ? '1px solid' : 0};
   border-radius: ${props.theme.borderRadius};
   background: ${props.theme.colors.neutral08};
   color: ${props.theme.colors.neutral};
@@ -309,6 +316,7 @@ export const InputBase = React.forwardRef<HTMLInputElement, InputBaseProps>(
       containerStyle,
       defaultValue,
       hasError,
+      helpIcon,
       icon,
       iconAriaLabel,
       iconRef,
@@ -367,6 +375,7 @@ export const InputBase = React.forwardRef<HTMLInputElement, InputBaseProps>(
         style={containerStyle}
         hasError={hasError}
         isClearable={isClearable}
+        helpIcon={helpIcon}
       >
         <StyledInput
           {...other}

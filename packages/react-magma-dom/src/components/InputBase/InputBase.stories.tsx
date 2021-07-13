@@ -14,6 +14,7 @@ import { Combobox } from '../Combobox';
 import { Select } from '../Select';
 import styled from '../../theme/styled';
 import { Meta } from '@storybook/react/types-6-0';
+import { HelpIcon } from 'react-magma-icons';
 
 const Container = styled.div`
   display: grid;
@@ -44,6 +45,12 @@ export const Default = args => {
           errorMessage="danger will robinson."
           labelText="Input"
           isClearable
+        />
+        <Input
+          labelText="Help Icon Test"
+          iconPosition={'right'}
+          icon={<HelpIcon />}
+          helpIcon
         />
         <PasswordInput
           errorMessage="danger will robinson."
